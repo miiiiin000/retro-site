@@ -1,0 +1,3149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>魔法少女あもちゃんとあもちゃんず</title>
+
+  <style>
+    :root {
+      --pink-1: #fff7fb;
+      --pink-2: #ffe6f1;
+      --pink-3: #ffcfe3;
+      --pink-4: #ff9fc5;
+      --pink-5: #ff6fa8;
+      --blue-1: #e8f8ff;
+      --blue-2: #8fdcff;
+      --text: #6e4a62;
+      --white: rgba(255, 255, 255, 0.82);
+      --shadow: 0 18px 50px rgba(225, 126, 170, 0.22);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family:
+        "Hiragino Maru Gothic ProN",
+        "Yu Gothic",
+        "Meiryo",
+        sans-serif;
+      line-height: 1.8;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.95) 0 3px, transparent 4px),
+        radial-gradient(circle at 85% 12%, rgba(255, 255, 255, 0.75) 0 2px, transparent 3px),
+        radial-gradient(circle at 30% 75%, rgba(255, 255, 255, 0.75) 0 2px, transparent 3px),
+        linear-gradient(135deg, var(--pink-1), var(--pink-2) 45%, var(--blue-1));
+      background-size: 110px 110px, 160px 160px, 190px 190px, auto;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .background-decoration {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .floating-star {
+      position: absolute;
+      color: rgba(255, 255, 255, 0.82);
+      text-shadow:
+        0 0 7px #ffffff,
+        0 0 14px rgba(255, 126, 184, 0.55);
+      animation:
+        floatStar var(--duration) ease-in-out infinite alternate,
+        twinkle 1.8s ease-in-out infinite alternate;
+      user-select: none;
+    }
+
+    @keyframes floatStar {
+      from {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      to {
+        transform: translateY(-28px) rotate(20deg);
+      }
+    }
+
+    @keyframes twinkle {
+      from {
+        opacity: 0.35;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .site-header {
+      width: min(1120px, calc(100% - 28px));
+      margin: 18px auto 0;
+      padding: 13px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.62);
+      box-shadow: 0 12px 35px rgba(219, 124, 166, 0.15);
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 12px;
+      z-index: 50;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-weight: 800;
+      color: var(--pink-5);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .logo-mark {
+      display: grid;
+      place-items: center;
+      width: 37px;
+      height: 37px;
+      border-radius: 50%;
+      color: white;
+      background: linear-gradient(135deg, var(--pink-4), var(--blue-2));
+      box-shadow:
+        0 8px 20px rgba(255, 111, 168, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.65);
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 5px;
+    }
+
+    .nav a {
+      padding: 7px 11px;
+      border-radius: 999px;
+      color: #8c607b;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: 0.25s ease;
+    }
+
+    .nav a:hover {
+      color: white;
+      background: linear-gradient(135deg, var(--pink-4), var(--blue-2));
+      transform: translateY(-2px);
+      box-shadow: 0 7px 18px rgba(230, 126, 174, 0.25);
+    }
+
+    .container {
+      width: min(1080px, calc(100% - 28px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 680px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 50px;
+      padding: 72px 0 60px;
+    }
+
+    .hero-text {
+      position: relative;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 15px;
+      padding: 7px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      border-radius: 999px;
+      color: #9a6483;
+      background: rgba(255, 255, 255, 0.66);
+      box-shadow: 0 9px 26px rgba(226, 129, 174, 0.14);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      color: #8b5573;
+      font-size: clamp(3.2rem, 8vw, 6.3rem);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+    }
+
+    .name-highlight {
+      color: transparent;
+      background: linear-gradient(135deg, #ff78ad, #b997f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      filter: drop-shadow(0 8px 12px rgba(239, 138, 184, 0.18));
+    }
+
+    .hero-copy {
+      max-width: 610px;
+      margin: 23px 0 0;
+      font-size: 1.05rem;
+      color: #805c71;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 29px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-width: 145px;
+      padding: 12px 20px;
+      border: 0;
+      border-radius: 999px;
+      font: inherit;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    .button-primary {
+      color: white;
+      background: linear-gradient(135deg, var(--pink-5), #79d4ff);
+      box-shadow: 0 12px 26px rgba(229, 115, 172, 0.32);
+    }
+
+    .button-secondary {
+      color: #8d5e79;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid white;
+      box-shadow: 0 10px 25px rgba(222, 138, 175, 0.16);
+    }
+
+    .button:hover {
+      transform: translateY(-4px) scale(1.02);
+    }
+
+    .hero-card-wrap {
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .orbit {
+      position: absolute;
+      width: 455px;
+      aspect-ratio: 1;
+      border: 1px dashed rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      animation: rotateOrbit 25s linear infinite;
+    }
+
+    .orbit::before,
+    .orbit::after {
+      content: "★";
+      position: absolute;
+      color: white;
+      text-shadow:
+        0 0 9px #ffffff,
+        0 0 18px #ff9bc3;
+      font-size: 1.7rem;
+    }
+
+    .orbit::before {
+      top: 5%;
+      left: 20%;
+    }
+
+    .orbit::after {
+      right: 6%;
+      bottom: 20%;
+    }
+
+    @keyframes rotateOrbit {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .profile-visual {
+      width: min(390px, 88vw);
+      aspect-ratio: 0.86;
+      position: relative;
+      border: 10px solid rgba(255, 255, 255, 0.78);
+      border-radius: 44% 44% 42% 42% / 38% 38% 48% 48%;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 36%, #ffe8f2 0 19%, transparent 20%),
+        radial-gradient(circle at 50% 41%, #f7cddc 0 29%, transparent 30%),
+        linear-gradient(145deg, #ffd8e9, #dff6ff);
+      box-shadow:
+        0 32px 60px rgba(203, 117, 160, 0.26),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+      transform: rotate(2deg);
+    }
+
+    .profile-visual::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 23%;
+      width: 145px;
+      height: 145px;
+      border-radius: 48% 48% 45% 45%;
+      background:
+        radial-gradient(circle at 37% 48%, #7a5870 0 4px, transparent 5px),
+        radial-gradient(circle at 63% 48%, #7a5870 0 4px, transparent 5px),
+        radial-gradient(ellipse at 50% 63%, #ee8bab 0 8px, transparent 9px),
+        #fff3f7;
+      box-shadow:
+        0 -15px 0 8px #b98baa,
+        -40px -5px 0 -13px #b98baa,
+        40px -5px 0 -13px #b98baa;
+      transform: translateX(-50%);
+    }
+
+    .profile-visual::after {
+      content: "AMO";
+      position: absolute;
+      left: 50%;
+      bottom: 13%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 3.2rem;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-shadow:
+        0 4px 0 #f09ac0,
+        0 0 18px rgba(255, 255, 255, 0.9);
+    }
+
+    .mini-star {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: 55px;
+      height: 55px;
+      border-radius: 18px;
+      color: white;
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+      font-size: 1.8rem;
+      animation: miniFloat 3s ease-in-out infinite alternate;
+    }
+
+    .mini-star.one {
+      left: -13px;
+      top: 18%;
+    }
+
+    .mini-star.two {
+      right: -18px;
+      bottom: 23%;
+      animation-delay: 0.7s;
+    }
+
+    @keyframes miniFloat {
+      to {
+        transform: translateY(-16px) rotate(8deg);
+      }
+    }
+
+    .section {
+      padding: 56px 0;
+      scroll-margin-top: 90px;
+    }
+
+    .section-heading {
+      margin-bottom: 26px;
+      text-align: center;
+    }
+
+    .section-heading span {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--pink-5);
+      font-size: 0.88rem;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      color: #8a5a76;
+      font-size: clamp(2rem, 5vw, 3.3rem);
+      line-height: 1.15;
+    }
+
+    .glass-card {
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 30px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .about-card {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 28px;
+      padding: 30px;
+    }
+
+    .about-message {
+      padding: 24px;
+      border-radius: 24px;
+      color: white;
+      background: linear-gradient(145deg, #ffacd0, #c5a5ff);
+      box-shadow: 0 16px 35px rgba(219, 132, 181, 0.24);
+    }
+
+    .about-message h3 {
+      margin-top: 0;
+      font-size: 1.65rem;
+    }
+
+    .about-message p {
+      margin-bottom: 0;
+    }
+
+    .profile-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 0;
+    }
+
+    .profile-item {
+      padding: 17px;
+      border-radius: 21px;
+      background: rgba(255, 247, 251, 0.82);
+      border: 1px solid rgba(255, 190, 219, 0.45);
+    }
+
+    .profile-item dt {
+      margin-bottom: 3px;
+      color: var(--pink-5);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .profile-item dd {
+      margin: 0;
+      color: #78576a;
+      font-weight: 700;
+    }
+
+    .favorite-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 17px;
+    }
+
+    .favorite-card {
+      position: relative;
+      padding: 25px 18px;
+      overflow: hidden;
+      text-align: center;
+      transition: 0.28s ease;
+    }
+
+    .favorite-card::before {
+      content: "";
+      position: absolute;
+      width: 95px;
+      height: 95px;
+      right: -34px;
+      top: -34px;
+      border-radius: 50%;
+      background: rgba(255, 198, 224, 0.42);
+    }
+
+    .favorite-card:hover {
+      transform: translateY(-8px) rotate(-1deg);
+      box-shadow: 0 24px 55px rgba(223, 128, 173, 0.27);
+    }
+
+    .favorite-icon {
+      display: grid;
+      place-items: center;
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 14px;
+      border-radius: 24px;
+      color: white;
+      background: linear-gradient(145deg, #ff9fc5, #84d9ff);
+      box-shadow: 0 12px 25px rgba(225, 124, 177, 0.24);
+      font-size: 2rem;
+    }
+
+    .favorite-card h3 {
+      margin: 0 0 6px;
+      color: #8b5c77;
+    }
+
+    .favorite-card p {
+      margin: 0;
+      font-size: 0.92rem;
+      color: #8b6c7e;
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 18px;
+      padding-left: 24px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 9px;
+      bottom: 9px;
+      width: 3px;
+      border-radius: 999px;
+      background: linear-gradient(var(--pink-4), var(--blue-2));
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 21px 22px;
+    }
+
+    .timeline-item::before {
+      content: "★";
+      position: absolute;
+      left: -31px;
+      top: 21px;
+      color: var(--pink-5);
+      font-size: 1rem;
+      text-shadow: 0 0 8px white;
+    }
+
+    .timeline-date {
+      color: var(--pink-5);
+      font-size: 0.8rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .timeline-item h3 {
+      margin: 2px 0 4px;
+      color: #805871;
+    }
+
+    .timeline-item p {
+      margin: 0;
+    }
+
+    .message-card {
+      padding: 42px 25px;
+      text-align: center;
+    }
+
+    .message-card p {
+      max-width: 650px;
+      margin: 0 auto 20px;
+      font-size: 1.05rem;
+    }
+
+    .message-card {
+      display: grid;
+      justify-items: center;
+      gap: 10px;
+    }
+
+    .magic-star-button {
+      position: relative;
+      width: 245px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      border: none;
+      color: white;
+      cursor: pointer;
+      background: linear-gradient(145deg, #ff8fbe, #8edcff);
+      clip-path: polygon(
+        50% 0%,
+        61% 33%,
+        98% 35%,
+        68% 57%,
+        79% 92%,
+        50% 72%,
+        21% 92%,
+        32% 57%,
+        2% 35%,
+        39% 33%
+      );
+      box-shadow:
+        0 22px 45px rgba(223, 119, 174, 0.30),
+        0 0 25px rgba(255, 255, 255, 0.9),
+        inset 0 2px 0 rgba(255,255,255,0.72);
+      transition: 0.28s ease;
+      overflow: visible;
+      isolation: isolate;
+    }
+
+    .magic-star-button::after {
+      content: "";
+      position: absolute;
+      inset: -16px;
+      z-index: -1;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.75), rgba(255,255,255,0) 65%);
+      filter: blur(8px);
+    }
+
+    .magic-star-button:hover {
+      transform: translateY(-8px) scale(1.04) rotate(-2deg);
+      box-shadow:
+        0 28px 55px rgba(223, 119, 174, 0.34),
+        0 0 32px rgba(255, 255, 255, 0.98),
+        inset 0 2px 0 rgba(255,255,255,0.72);
+    }
+
+    .magic-star-button:active {
+      transform: translateY(-2px) scale(0.99);
+    }
+
+    .star-icon {
+      position: absolute;
+      top: 26px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.5rem;
+      line-height: 1;
+      color: #fff7ae;
+      text-shadow:
+        0 0 10px rgba(255,255,255,1),
+        0 0 18px rgba(255, 227, 120, 0.95);
+    }
+
+    .star-label {
+      position: relative;
+      margin-top: 18px;
+      text-align: center;
+      font-size: 1.18rem;
+      line-height: 1.55;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-shadow: 0 2px 10px rgba(191, 97, 148, 0.32);
+    }
+
+    .sparkle-button {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sparkle-button::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -80%;
+      width: 45%;
+      height: 200%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.8),
+        transparent
+      );
+      transform: rotate(20deg);
+      transition: 0.6s;
+    }
+
+    .sparkle-button:hover::before {
+      left: 140%;
+    }
+
+    .footer {
+      padding: 45px 15px 35px;
+      text-align: center;
+      color: #957085;
+      font-size: 0.9rem;
+    }
+
+    .footer-star {
+      display: inline-block;
+      color: var(--pink-5);
+      animation: twinkle 1s ease-in-out infinite alternate;
+    }
+
+    .cursor-star {
+      position: fixed;
+      z-index: 999;
+      pointer-events: none;
+      color: white;
+      text-shadow:
+        0 0 5px white,
+        0 0 13px #ff7db3;
+      animation: cursorFade 760ms ease-out forwards;
+    }
+
+    @keyframes cursorFade {
+      from {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+      }
+
+      to {
+        opacity: 0;
+        transform: translate(-50%, -90%) scale(0.2) rotate(90deg);
+      }
+    }
+
+    .click-message {
+      position: fixed;
+      left: 50%;
+      bottom: 30px;
+      z-index: 1000;
+      transform: translateX(-50%) translateY(20px);
+      padding: 11px 17px;
+      border: 1px solid white;
+      border-radius: 999px;
+      color: white;
+      background: linear-gradient(135deg, #ff8ab8, #ba9cff);
+      box-shadow: 0 14px 30px rgba(211, 117, 169, 0.28);
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.3s ease;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .click-message.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+
+    .magic-wand {
+      position: absolute;
+      right: 8%;
+      top: 12%;
+      width: 58px;
+      height: 150px;
+      display: grid;
+      place-items: start center;
+      padding-top: 4px;
+      color: #fff8b8;
+      font-size: 2.8rem;
+      text-shadow:
+        0 0 8px #ffffff,
+        0 0 16px #ff8fbe;
+      transform: rotate(24deg);
+      z-index: 3;
+      filter: drop-shadow(0 8px 10px rgba(206, 112, 160, 0.22));
+    }
+
+    .magic-wand::before {
+      content: "";
+      position: absolute;
+      top: 46px;
+      width: 13px;
+      height: 98px;
+      border-radius: 999px;
+      background: linear-gradient(#ffffff, #ff9fc5 55%, #c6a5ff);
+      box-shadow:
+        inset 0 0 0 3px rgba(255, 255, 255, 0.6),
+        0 0 12px rgba(255, 141, 190, 0.65);
+    }
+
+    .magic-wand::after {
+      content: "🎀";
+      position: absolute;
+      top: 42px;
+      font-size: 1.7rem;
+    }
+
+    .magic-compact {
+      position: absolute;
+      left: 7%;
+      bottom: 12%;
+      width: 72px;
+      height: 72px;
+      display: grid;
+      place-items: center;
+      border: 5px solid rgba(255,255,255,0.85);
+      border-radius: 50%;
+      color: #fff6ad;
+      background:
+        radial-gradient(circle, #8fdcff 0 34%, #ff9fc5 35% 62%, #ffffff 63%);
+      box-shadow:
+        0 12px 24px rgba(210, 112, 164, 0.25),
+        0 0 18px rgba(255,255,255,0.95);
+      font-size: 2.1rem;
+      z-index: 3;
+      animation: compactGlow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes compactGlow {
+      to {
+        transform: scale(1.07) rotate(-6deg);
+        box-shadow:
+          0 15px 28px rgba(210, 112, 164, 0.28),
+          0 0 30px rgba(255, 255, 255, 1);
+      }
+    }
+
+    .transformation-flash {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      pointer-events: none;
+      opacity: 0;
+      background:
+        radial-gradient(circle, rgba(255,255,255,0.98), rgba(255,174,213,0.6) 28%, transparent 65%);
+    }
+
+    .transformation-flash.active {
+      animation: magicalFlash 900ms ease-out;
+    }
+
+    @keyframes magicalFlash {
+      0% { opacity: 0; transform: scale(0.3); }
+      35% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1.5); }
+    }
+
+
+    .profile-visual::before,
+    .profile-visual::after,
+    .amo-character,
+    .amo-hair-back,
+    .amo-face,
+    .amo-bangs,
+    .amo-hairpin,
+    .amo-ribbon,
+    .amo-ribbon-center,
+    .amo-body,
+    .amo-cape,
+    .amo-name-badge,
+    .magic-wand,
+    .magic-compact {
+      display: none !important;
+    }
+
+    .chibi-amo {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+    }
+
+    .chibi-hair-back {
+      position: absolute;
+      left: 50%;
+      top: 13%;
+      width: 224px;
+      height: 255px;
+      transform: translateX(-50%);
+      border-radius: 46% 46% 42% 42%;
+      background: linear-gradient(180deg, #ddb2d4, #b67dad 58%, #9d6f99 100%);
+      box-shadow:
+        -42px 74px 0 -14px #c88fbe,
+        42px 74px 0 -14px #c88fbe,
+        -18px 112px 0 -30px #b67ead,
+        18px 112px 0 -30px #b67ead;
+    }
+
+    .chibi-hair-back::before,
+    .chibi-hair-back::after {
+      content: "";
+      position: absolute;
+      top: 72px;
+      width: 66px;
+      height: 150px;
+      background: linear-gradient(180deg, #d8a9cd, #b379aa 62%, #9a6d96);
+      border-radius: 42px 42px 56px 56px;
+      z-index: 0;
+    }
+
+    .chibi-hair-back::before {
+      left: -6px;
+      transform: rotate(8deg);
+    }
+
+    .chibi-hair-back::after {
+      right: -6px;
+      transform: rotate(-8deg);
+    }
+
+    .chibi-face {
+      position: absolute;
+      left: 50%;
+      top: 22%;
+      width: 172px;
+      height: 148px;
+      transform: translateX(-50%);
+      border-radius: 48% 48% 46% 46%;
+      background: #fff6f9;
+      border: 4px solid rgba(255,255,255,.75);
+      box-shadow: 0 10px 20px rgba(166, 92, 135, .16);
+      z-index: 5;
+    }
+
+    .chibi-bangs {
+      position: absolute;
+      left: 50%;
+      top: 17%;
+      width: 185px;
+      height: 72px;
+      transform: translateX(-50%);
+      border-radius: 52% 52% 40% 40%;
+      background:
+        radial-gradient(ellipse at 18% 100%, transparent 0 43%, #c995bd 44% 100%),
+        radial-gradient(ellipse at 50% 100%, transparent 0 43%, #d7a8ca 44% 100%),
+        radial-gradient(ellipse at 82% 100%, transparent 0 43%, #c995bd 44% 100%);
+      z-index: 6;
+    }
+
+    .eye {
+      position: absolute;
+      top: 58px;
+      width: 18px;
+      height: 24px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 38% 30%, white 0 3px, transparent 4px),
+        #6f4c68;
+    }
+
+    .eye.left { left: 43px; }
+    .eye.right { right: 43px; }
+
+    .cheek {
+      position: absolute;
+      top: 89px;
+      width: 28px;
+      height: 13px;
+      border-radius: 50%;
+      background: rgba(255, 158, 190, .38);
+      filter: blur(.3px);
+    }
+
+    .cheek.left { left: 19px; }
+    .cheek.right { right: 19px; }
+
+    .mouth {
+      position: absolute;
+      left: 50%;
+      top: 98px;
+      width: 25px;
+      height: 13px;
+      transform: translateX(-50%);
+      border-bottom: 4px solid #e78aaa;
+      border-radius: 0 0 50% 50%;
+    }
+
+    .chibi-ribbon {
+      position: absolute;
+      left: 50%;
+      top: 9%;
+      width: 122px;
+      height: 58px;
+      transform: translateX(-50%);
+      z-index: 7;
+    }
+
+    .chibi-ribbon::before,
+    .chibi-ribbon::after {
+      content: "";
+      position: absolute;
+      top: 8px;
+      width: 55px;
+      height: 42px;
+      border: 4px solid rgba(255,255,255,.8);
+      background: linear-gradient(145deg, #ff92bd, #9fddff);
+      box-shadow: 0 8px 14px rgba(204, 105, 157, .18);
+    }
+
+    .chibi-ribbon::before {
+      left: 0;
+      border-radius: 58% 20% 58% 20%;
+      transform: rotate(-15deg);
+    }
+
+    .chibi-ribbon::after {
+      right: 0;
+      border-radius: 20% 58% 20% 58%;
+      transform: rotate(15deg);
+    }
+
+    .chibi-ribbon span {
+      position: absolute;
+      left: 50%;
+      top: 17px;
+      width: 34px;
+      height: 34px;
+      transform: translateX(-50%) rotate(45deg);
+      border-radius: 10px;
+      background: #fff3a4;
+      border: 4px solid rgba(255,255,255,.85);
+      box-shadow: 0 0 14px rgba(255, 232, 130, .85);
+      z-index: 2;
+    }
+
+    .chibi-hairpin {
+      position: absolute;
+      left: calc(50% + 58px);
+      top: 22%;
+      color: #fff3a5;
+      font-size: 1.8rem;
+      text-shadow: 0 0 8px white, 0 0 14px #ff9fc5;
+      transform: rotate(12deg);
+      z-index: 8;
+    }
+
+    .chibi-body {
+      position: absolute;
+      left: 50%;
+      bottom: 11%;
+      width: 170px;
+      height: 145px;
+      transform: translateX(-50%);
+      border-radius: 48% 48% 30% 30%;
+      background:
+        linear-gradient(180deg, #ffadd0 0 28%, #fff 29% 46%, #a9e2ff 47% 58%, #ff9fc5 59% 100%);
+      border: 5px solid rgba(255,255,255,.7);
+      box-shadow: 0 14px 24px rgba(172, 94, 140, .2);
+      z-index: 4;
+    }
+
+    .chibi-body::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 14px;
+      width: 145px;
+      height: 50px;
+      transform: translateX(-50%);
+      border-radius: 50% 50% 18% 18%;
+      background: repeating-linear-gradient(
+        90deg,
+        #ffb5d1 0 24px,
+        #dff7ff 24px 48px
+      );
+      border-top: 5px solid rgba(255,255,255,.78);
+    }
+
+    .chest-star {
+      position: absolute;
+      left: 50%;
+      top: 18px;
+      transform: translateX(-50%);
+      color: #fff1a0;
+      font-size: 1.8rem;
+      text-shadow: 0 0 8px white, 0 0 14px #ffadce;
+      z-index: 3;
+    }
+
+    .arm {
+      position: absolute;
+      top: 37px;
+      width: 48px;
+      height: 24px;
+      border-radius: 999px;
+      background: #fff4f7;
+      border: 4px solid rgba(255,255,255,.75);
+      z-index: -1;
+    }
+
+    .arm.left {
+      left: -30px;
+      transform: rotate(24deg);
+    }
+
+    .arm.right {
+      right: -30px;
+      transform: rotate(-24deg);
+    }
+
+    .boot {
+      position: absolute;
+      bottom: -32px;
+      width: 43px;
+      height: 54px;
+      border-radius: 18px 18px 22px 22px;
+      background: linear-gradient(#fff, #d9b8ff);
+      border: 4px solid rgba(255,255,255,.7);
+    }
+
+    .boot.left { left: 27px; transform: rotate(6deg); }
+    .boot.right { right: 27px; transform: rotate(-6deg); }
+
+    .chibi-cape {
+      position: absolute;
+      left: 50%;
+      bottom: 11%;
+      width: 230px;
+      height: 150px;
+      transform: translateX(-50%);
+      clip-path: polygon(50% 0, 100% 28%, 84% 100%, 50% 78%, 16% 100%, 0 28%);
+      background: linear-gradient(180deg, rgba(255,255,255,.62), rgba(199,166,255,.6));
+      z-index: 1;
+      filter: drop-shadow(0 12px 18px rgba(159, 93, 145, .15));
+    }
+
+    .chibi-wand {
+      position: absolute;
+      right: 10%;
+      bottom: 23%;
+      color: #fff3a3;
+      font-size: 2.4rem;
+      text-shadow: 0 0 8px white, 0 0 15px #ff9fc5;
+      transform: rotate(20deg);
+      z-index: 8;
+    }
+
+    .chibi-wand::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 36px;
+      width: 11px;
+      height: 78px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: linear-gradient(#fff, #ff9fc5, #93ddff);
+      box-shadow: 0 0 12px rgba(255, 141, 190, .65);
+    }
+
+    .chibi-name {
+      position: absolute;
+      left: 50%;
+      bottom: 5%;
+      transform: translateX(-50%);
+      padding: 6px 15px;
+      border-radius: 999px;
+      color: white;
+      background: linear-gradient(135deg, #ff82b5, #7fd7ff);
+      border: 3px solid rgba(255,255,255,.78);
+      box-shadow: 0 8px 18px rgba(204, 110, 164, .22);
+      font-weight: 900;
+      z-index: 9;
+    }
+
+    .amo-friends-label {
+      position: absolute;
+      left: 7%;
+      top: 8%;
+      padding: 6px 11px;
+      border-radius: 999px;
+      color: #8b5e79;
+      background: rgba(255,255,255,.78);
+      border: 1px solid white;
+      box-shadow: 0 8px 18px rgba(208, 119, 165, .16);
+      font-size: .78rem;
+      font-weight: 800;
+      z-index: 10;
+    }
+
+    @media (max-width: 850px) {
+      .site-header {
+        border-radius: 27px;
+        align-items: flex-start;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 55px;
+      }
+
+      .hero-copy {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-card-wrap {
+        margin-top: 10px;
+      }
+
+      .orbit {
+        width: min(430px, 92vw);
+      }
+
+      .about-card {
+        grid-template-columns: 1fr;
+      }
+
+      .favorite-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .site-header {
+        width: calc(100% - 18px);
+        margin-top: 9px;
+      }
+
+      .container {
+        width: calc(100% - 20px);
+      }
+
+      .hero {
+        gap: 30px;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 17vw, 4.6rem);
+      }
+
+      .profile-visual {
+        width: min(330px, 88vw);
+      }
+
+      .orbit {
+        display: none;
+      }
+
+      .profile-list,
+      .favorite-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-card {
+        padding: 18px;
+      }
+
+      .section {
+        padding: 42px 0;
+      }
+
+      .message-card {
+        padding: 32px 18px;
+      }
+
+      .magic-star-button {
+        width: 200px;
+      }
+
+      .star-icon {
+        top: 22px;
+        font-size: 2.2rem;
+      }
+
+      .star-label {
+        font-size: 1.02rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  
+    /* ==== さらにかわいい あもちゃん調整 ==== */
+    .chibi-hair-back {
+      top: 12%;
+      width: 232px;
+      height: 266px;
+      border: 4px solid rgba(255, 255, 255, 0.52);
+      background:
+        linear-gradient(180deg, #e2b6d9 0 22%, #c688bc 50%, #a875a2 100%);
+      box-shadow:
+        -46px 82px 0 -16px #cf94c4,
+        46px 82px 0 -16px #cf94c4,
+        -20px 118px 0 -32px #b97fb0,
+        20px 118px 0 -32px #b97fb0,
+        inset 0 16px 0 rgba(255, 255, 255, 0.16);
+      z-index: 2;
+    }
+
+    .chibi-hair-back::before,
+    .chibi-hair-back::after {
+      top: 82px;
+      width: 76px;
+      height: 166px;
+      border: 4px solid rgba(255, 255, 255, 0.38);
+      background:
+        linear-gradient(180deg, #e0b1d6 0 18%, #be83b5 55%, #9e6d99 100%);
+      box-shadow: inset 0 12px 0 rgba(255,255,255,0.12);
+    }
+
+    .chibi-hair-side {
+      position: absolute;
+      top: 31%;
+      width: 56px;
+      height: 122px;
+      border: 4px solid rgba(255, 255, 255, 0.4);
+      background: linear-gradient(180deg, #dfb2d5 0 16%, #c587bc 52%, #a977a2 100%);
+      border-radius: 34px 34px 42px 42px;
+      z-index: 5;
+      box-shadow:
+        inset 0 12px 0 rgba(255,255,255,0.1),
+        0 10px 16px rgba(168, 94, 142, 0.16);
+    }
+
+    .chibi-hair-side.left {
+      left: 84px;
+      transform: rotate(10deg);
+    }
+
+    .chibi-hair-side.right {
+      right: 84px;
+      transform: rotate(-10deg);
+    }
+
+    .chibi-bangs {
+      top: 16.5%;
+      width: 194px;
+      height: 78px;
+      border-top: 4px solid rgba(255,255,255,0.35);
+      background:
+        radial-gradient(ellipse at 18% 100%, transparent 0 41%, #c687bc 42% 100%),
+        radial-gradient(ellipse at 50% 100%, transparent 0 41%, #deafd4 42% 100%),
+        radial-gradient(ellipse at 82% 100%, transparent 0 41%, #c687bc 42% 100%);
+      filter: drop-shadow(0 4px 4px rgba(179, 108, 154, 0.12));
+    }
+
+    .chibi-face {
+      top: 22%;
+      width: 176px;
+      height: 152px;
+      border-radius: 49% 49% 46% 46%;
+      box-shadow:
+        0 12px 20px rgba(166, 92, 135, 0.14),
+        inset 0 -8px 0 rgba(255, 226, 236, 0.55);
+      background:
+        radial-gradient(circle at 50% 10%, rgba(255,255,255,0.96), rgba(255,255,255,0) 35%),
+        #fff6f9;
+    }
+
+    .eye {
+      top: 54px;
+      width: 24px;
+      height: 31px;
+      border-radius: 48% 48% 52% 52%;
+      background:
+        linear-gradient(180deg, #70536d 0 26%, #8c72ec 27% 58%, #f59cc9 59% 100%);
+      box-shadow:
+        0 2px 0 rgba(110, 70, 102, 0.24),
+        inset 0 -2px 0 rgba(255,255,255,0.22);
+    }
+
+    .eye::before {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 5px;
+      width: 8px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.98);
+    }
+
+    .eye::after {
+      content: "";
+      position: absolute;
+      right: 4px;
+      bottom: 5px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+    }
+
+    .eye.left { left: 39px; }
+    .eye.right { right: 39px; }
+
+    .cheek {
+      top: 92px;
+      width: 31px;
+      height: 15px;
+      background: rgba(255, 163, 197, 0.48);
+      filter: blur(0.2px);
+    }
+
+    .cheek.left { left: 15px; }
+    .cheek.right { right: 15px; }
+
+    .mouth {
+      top: 101px;
+      width: 24px;
+      height: 12px;
+      border-bottom: 4px solid #ee88ad;
+      border-radius: 0 0 14px 14px;
+    }
+
+    .mouth::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -3px;
+      width: 10px;
+      height: 5px;
+      transform: translateX(-50%);
+      border-radius: 0 0 10px 10px;
+      background: #ffbfd0;
+      opacity: 0.9;
+    }
+
+    .chibi-hairpin {
+      left: calc(50% + 62px);
+      top: 21.5%;
+      font-size: 1.95rem;
+    }
+
+    .magic-star-button {
+      width: 286px;
+      aspect-ratio: 1;
+      padding: 0;
+      background:
+        conic-gradient(from 0deg, #ffd6eb, #ff9bc4 18%, #9fe3ff 38%, #fff6cf 54%, #ffa8cd 72%, #b8ebff 88%, #ffd6eb);
+      clip-path: polygon(
+        50% 0%,
+        61% 31%,
+        96% 35%,
+        69% 55%,
+        79% 91%,
+        50% 73%,
+        21% 91%,
+        31% 55%,
+        4% 35%,
+        39% 31%
+      );
+      border: 4px solid rgba(255,255,255,0.66);
+      box-shadow:
+        0 28px 62px rgba(223, 119, 174, 0.34),
+        0 0 36px rgba(255, 255, 255, 0.98),
+        inset 0 4px 0 rgba(255,255,255,0.72),
+        inset 0 -14px 22px rgba(189, 115, 184, 0.24);
+      overflow: visible;
+    }
+
+    .magic-star-button::before {
+      content: "";
+      position: absolute;
+      inset: 28px;
+      clip-path: polygon(
+        50% 0%,
+        60% 33%,
+        95% 36%,
+        67% 56%,
+        77% 90%,
+        50% 72%,
+        23% 90%,
+        33% 56%,
+        5% 36%,
+        40% 33%
+      );
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.94), rgba(255,255,255,0.18) 28%, rgba(255,255,255,0.02) 58%),
+        linear-gradient(145deg, rgba(255,246,208,0.3), rgba(255,143,190,0.12), rgba(198,162,255,0.15));
+      box-shadow:
+        inset 0 2px 0 rgba(255,255,255,0.9),
+        0 0 22px rgba(255,255,255,0.55);
+      z-index: 0;
+    }
+
+    .magic-star-button::after {
+      content: "";
+      position: absolute;
+      inset: -20px;
+      z-index: -1;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(255,255,255,0.88), rgba(255,215,236,0.4) 38%, rgba(255,255,255,0) 68%);
+      filter: blur(10px);
+    }
+
+    .magic-star-button:hover {
+      transform: translateY(-8px) scale(1.05) rotate(-2deg);
+      box-shadow:
+        0 32px 72px rgba(223, 119, 174, 0.38),
+        0 0 45px rgba(255, 255, 255, 1),
+        inset 0 4px 0 rgba(255,255,255,0.75),
+        inset 0 -14px 22px rgba(189, 115, 184, 0.26);
+    }
+
+    .gemstar-jewel {
+      position: absolute;
+      top: 76px;
+      left: 50%;
+      width: 66px;
+      height: 66px;
+      transform: translateX(-50%) rotate(45deg);
+      border-radius: 16px;
+      border: 4px solid rgba(255,255,255,0.85);
+      background:
+        linear-gradient(135deg, #fff6fb 0 16%, #ffd2ea 17% 34%, #b9ebff 35% 56%, #ff9bc4 57% 78%, #8fdcff 79% 100%);
+      box-shadow:
+        0 0 18px rgba(255,255,255,0.95),
+        0 10px 18px rgba(214, 113, 170, 0.22);
+      z-index: 2;
+    }
+
+    .gemstar-jewel::before {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.12));
+      opacity: 0.9;
+    }
+
+    .gemstar-centerstar {
+      position: absolute;
+      top: 78px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff4a8;
+      font-size: 2.8rem;
+      line-height: 1;
+      text-shadow:
+        0 0 10px rgba(255,255,255,1),
+        0 0 20px rgba(255, 231, 118, 0.96);
+      z-index: 3;
+    }
+
+    .gemstar-label {
+      position: relative;
+      z-index: 3;
+      margin-top: 98px;
+      text-align: center;
+      font-size: 1.18rem;
+      line-height: 1.55;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      color: white;
+      text-shadow:
+        0 2px 12px rgba(175, 86, 138, 0.36),
+        0 0 8px rgba(255,255,255,0.5);
+    }
+
+    .gemstar-sparkle {
+      position: absolute;
+      z-index: 4;
+      color: rgba(255,255,255,0.98);
+      text-shadow:
+        0 0 10px rgba(255,255,255,1),
+        0 0 18px rgba(255, 212, 129, 0.95);
+      animation: twinkle 1.2s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    .gemstar-sparkle.s1 {
+      top: 34px;
+      right: 42px;
+      font-size: 1.6rem;
+    }
+
+    .gemstar-sparkle.s2 {
+      bottom: 52px;
+      left: 40px;
+      font-size: 1.25rem;
+      animation-delay: 0.25s;
+    }
+
+    .gemstar-sparkle.s3 {
+      right: 58px;
+      bottom: 34px;
+      font-size: 1.05rem;
+      animation-delay: 0.45s;
+    }
+
+    @media (max-width: 560px) {
+      .magic-star-button {
+        width: 232px;
+      }
+
+      .gemstar-jewel {
+        top: 60px;
+        width: 56px;
+        height: 56px;
+      }
+
+      .gemstar-centerstar {
+        top: 61px;
+        font-size: 2.35rem;
+      }
+
+      .gemstar-label {
+        margin-top: 78px;
+        font-size: 1rem;
+      }
+
+      .chibi-hair-back {
+        width: 212px;
+        height: 244px;
+      }
+
+      .chibi-hair-side.left {
+        left: 74px;
+      }
+
+      .chibi-hair-side.right {
+        right: 74px;
+      }
+    }
+
+
+    /* ===== 追加調整：見出し・カーソルきらきら・あもちゃんの等身 ===== */
+    h1 {
+      font-family:
+        "Arial Rounded MT Bold",
+        "Hiragino Maru Gothic ProN",
+        "Yu Gothic",
+        "Meiryo",
+        sans-serif;
+      font-weight: 900;
+      line-height: 1.12;
+      letter-spacing: 0.02em;
+      color: #9b6680;
+      text-shadow: 0 6px 18px rgba(245, 170, 203, 0.18);
+    }
+
+    .hero-greeting {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 7px 18px;
+      border-radius: 999px;
+      color: #9a6680;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255,255,255,0.95);
+      box-shadow: 0 10px 24px rgba(230, 141, 181, 0.14);
+      font-size: clamp(1.1rem, 2.2vw, 1.7rem);
+      letter-spacing: 0.08em;
+    }
+
+    .name-highlight {
+      display: inline-block;
+      margin-top: 2px;
+      font-size: clamp(3.4rem, 8vw, 6.6rem);
+      line-height: 1.02;
+      letter-spacing: 0.03em;
+      background: linear-gradient(135deg, #ff78ad 0%, #ff94c0 28%, #83d9ff 62%, #ffcf86 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      text-shadow:
+        0 0 0 rgba(0,0,0,0),
+        0 8px 18px rgba(239, 138, 184, 0.18);
+      filter: drop-shadow(0 10px 16px rgba(239, 138, 184, 0.14));
+    }
+
+    .hero-ending {
+      display: inline-block;
+      margin-left: 8px;
+      color: #9a6480;
+      font-size: clamp(1.25rem, 2.3vw, 2rem);
+      font-weight: 800;
+    }
+
+    .cursor-star {
+      position: fixed;
+      z-index: 999;
+      pointer-events: none;
+      color: white;
+      mix-blend-mode: screen;
+      text-shadow:
+        0 0 6px rgba(255,255,255,1),
+        0 0 14px rgba(255, 197, 231, 0.95),
+        0 0 24px rgba(197, 168, 255, 0.75);
+      animation: cursorFade 980ms ease-out forwards;
+      will-change: transform, opacity;
+    }
+
+    @keyframes cursorFade {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+      }
+
+      55% {
+        opacity: 0.95;
+        transform: translate(-50%, -78%) scale(1.1) rotate(24deg);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -115%) scale(0.15) rotate(90deg);
+      }
+    }
+
+    .chibi-hair-back {
+      top: 13%;
+      width: 216px;
+      height: 248px;
+      border: 4px solid rgba(255, 255, 255, 0.52);
+      background:
+        linear-gradient(180deg, #e4b9dc 0 20%, #ca8fc1 50%, #aa75a3 100%);
+      box-shadow:
+        -42px 78px 0 -16px #d39ac9,
+        42px 78px 0 -16px #d39ac9,
+        -18px 112px 0 -32px #be86b4,
+        18px 112px 0 -32px #be86b4,
+        inset 0 16px 0 rgba(255, 255, 255, 0.15);
+      z-index: 1;
+    }
+
+    .chibi-hair-back::before,
+    .chibi-hair-back::after {
+      top: 86px;
+      width: 70px;
+      height: 158px;
+      border: 4px solid rgba(255,255,255,0.38);
+      background:
+        linear-gradient(180deg, #e2b4d9 0 16%, #c286b9 55%, #a673a0 100%);
+      box-shadow:
+        inset 0 12px 0 rgba(255,255,255,0.12),
+        0 10px 18px rgba(170, 93, 145, 0.14);
+    }
+
+    .chibi-hair-side {
+      top: 33%;
+      width: 50px;
+      height: 112px;
+      border: 4px solid rgba(255, 255, 255, 0.42);
+      background: linear-gradient(180deg, #e4b8db 0 18%, #ca8fc1 56%, #ab77a5 100%);
+      border-radius: 32px 32px 40px 40px;
+      z-index: 6;
+      box-shadow:
+        inset 0 10px 0 rgba(255,255,255,0.1),
+        0 10px 16px rgba(168, 94, 142, 0.18);
+    }
+
+    .chibi-hair-side.left {
+      left: 90px;
+      transform: rotate(8deg);
+    }
+
+    .chibi-hair-side.right {
+      right: 90px;
+      transform: rotate(-8deg);
+    }
+
+    .chibi-face {
+      top: 23%;
+      width: 160px;
+      height: 140px;
+      border-radius: 49% 49% 47% 47%;
+      background:
+        radial-gradient(circle at 50% 10%, rgba(255,255,255,0.96), rgba(255,255,255,0) 35%),
+        #fff7fa;
+      box-shadow:
+        0 12px 20px rgba(166, 92, 135, 0.12),
+        inset 0 -8px 0 rgba(255, 226, 236, 0.52);
+      z-index: 7;
+    }
+
+    .eye {
+      top: 51px;
+      width: 21px;
+      height: 28px;
+      border-radius: 48% 48% 54% 54%;
+      background:
+        linear-gradient(180deg, #6f526d 0 22%, #4ebde8 23% 58%, #f59cc9 59% 100%);
+      box-shadow:
+        0 2px 0 rgba(110, 70, 102, 0.2),
+        inset 0 -2px 0 rgba(255,255,255,0.22);
+    }
+
+    .eye.left { left: 36px; }
+    .eye.right { right: 36px; }
+
+    .eye::before {
+      left: 5px;
+      top: 5px;
+      width: 8px;
+      height: 10px;
+    }
+
+    .eye::after {
+      right: 4px;
+      bottom: 5px;
+      width: 5px;
+      height: 5px;
+    }
+
+    .cheek {
+      top: 87px;
+      width: 28px;
+      height: 14px;
+      background: rgba(255, 163, 197, 0.45);
+    }
+
+    .cheek.left { left: 12px; }
+    .cheek.right { right: 12px; }
+
+    .mouth {
+      top: 95px;
+      width: 22px;
+      height: 11px;
+      border-bottom: 4px solid #ee88ad;
+      border-radius: 0 0 14px 14px;
+    }
+
+    .chibi-bangs {
+      top: 17%;
+      width: 182px;
+      height: 74px;
+      z-index: 8;
+    }
+
+    .chibi-ribbon {
+      top: 10%;
+      width: 118px;
+      height: 54px;
+      z-index: 9;
+    }
+
+    .chibi-hairpin {
+      left: calc(50% + 55px);
+      top: 22%;
+      font-size: 1.8rem;
+      z-index: 10;
+    }
+
+    .chibi-body {
+      bottom: 8%;
+      width: 186px;
+      height: 164px;
+      border-radius: 40% 40% 28% 28%;
+      z-index: 5;
+    }
+
+    .chibi-body::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: -18px;
+      width: 30px;
+      height: 26px;
+      transform: translateX(-50%);
+      border-radius: 14px 14px 10px 10px;
+      background: #fff5f8;
+      border: 4px solid rgba(255,255,255,.72);
+      box-shadow: 0 5px 10px rgba(210, 133, 167, 0.12);
+    }
+
+    .chibi-body::after {
+      width: 156px;
+      height: 56px;
+    }
+
+    .arm {
+      top: 46px;
+      width: 56px;
+      height: 26px;
+    }
+
+    .arm.left {
+      left: -34px;
+      transform: rotate(22deg);
+    }
+
+    .arm.right {
+      right: -34px;
+      transform: rotate(-22deg);
+    }
+
+    .boot {
+      bottom: -36px;
+      width: 44px;
+      height: 60px;
+    }
+
+    .chibi-cape {
+      bottom: 8%;
+      width: 240px;
+      height: 164px;
+      opacity: 0.85;
+    }
+
+    .chibi-wand {
+      right: 9%;
+      bottom: 21%;
+      font-size: 2.25rem;
+    }
+
+    .chibi-wand::after {
+      top: 34px;
+      height: 90px;
+    }
+
+    @media (max-width: 560px) {
+      .hero-greeting {
+        font-size: 1rem;
+      }
+
+      .hero-ending {
+        display: block;
+        margin-top: 6px;
+        margin-left: 0;
+        font-size: 1.1rem;
+      }
+
+      .chibi-face {
+        width: 150px;
+        height: 132px;
+      }
+
+      .chibi-body {
+        width: 174px;
+        height: 156px;
+      }
+
+      .chibi-hair-side.left {
+        left: 78px;
+      }
+
+      .chibi-hair-side.right {
+        right: 78px;
+      }
+    }
+
+
+    /* ===== 配色変更：ピンク × 水色 ===== */
+    :root {
+      --blue-1: #e8f8ff;
+      --blue-2: #8fdcff;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,.98) 0 3px, transparent 4px),
+        radial-gradient(circle at 85% 12%, rgba(255,255,255,.9) 0 2px, transparent 3px),
+        radial-gradient(circle at 30% 75%, rgba(255,255,255,.9) 0 2px, transparent 3px),
+        linear-gradient(135deg, #fff7fb, #ffe5f1 48%, #e8f8ff);
+    }
+
+    .logo-mark,
+    .nav a:hover,
+    .button-primary,
+    .about-message,
+    .favorite-icon,
+    .click-message {
+      background: linear-gradient(135deg, #ff8fbd, #74d6ff) !important;
+    }
+
+    .name-highlight {
+      background: linear-gradient(135deg, #ff78ad 0%, #ff9fc6 42%, #72d6ff 76%, #bcefff 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .orbit {
+      border-color: rgba(112, 208, 246, 0.58);
+    }
+
+    /* ===== 背景と同化しないカーソルの軌跡 ===== */
+    .cursor-star {
+      z-index: 9999;
+      mix-blend-mode: normal;
+      -webkit-text-stroke: 1px rgba(145, 77, 117, 0.7);
+      filter:
+        drop-shadow(0 0 3px rgba(255,255,255,1))
+        drop-shadow(0 0 7px rgba(255,104,169,.95))
+        drop-shadow(0 0 12px rgba(63,185,235,.9));
+      text-shadow:
+        0 1px 0 rgba(112, 60, 96, 0.65),
+        0 0 4px #ffffff,
+        0 0 10px #ff70ad,
+        0 0 16px #55c9f5;
+      opacity: 1;
+    }
+
+    /* ===== あもちゃんを一から作り直したイラスト ===== */
+    .chibi-amo {
+      display: none !important;
+    }
+
+    .profile-visual {
+      background:
+        radial-gradient(circle at 18% 18%, rgba(255,255,255,.98) 0 4px, transparent 5px),
+        radial-gradient(circle at 82% 30%, rgba(255,255,255,.92) 0 3px, transparent 4px),
+        linear-gradient(145deg, #ffdbe9 0%, #fff4f9 52%, #dff7ff 100%);
+      border-color: rgba(255,255,255,.92);
+      overflow: hidden;
+    }
+
+    .amo-illustration {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+    }
+
+    .amo-hair-back-new {
+      position: absolute;
+      left: 50%;
+      top: 9%;
+      width: 210px;
+      height: 250px;
+      transform: translateX(-50%);
+      border-radius: 48% 48% 42% 42%;
+      background: linear-gradient(180deg, #8d694f 0%, #6f4d3c 58%, #5e4034 100%);
+      box-shadow:
+        -48px 82px 0 -17px #6e4b3b,
+        48px 82px 0 -17px #6e4b3b,
+        inset 0 12px 0 rgba(255,255,255,.12);
+      z-index: 1;
+    }
+
+    .amo-hair-back-new::before,
+    .amo-hair-back-new::after {
+      content: "";
+      position: absolute;
+      top: 82px;
+      width: 58px;
+      height: 170px;
+      border-radius: 40px 40px 54px 54px;
+      background: linear-gradient(180deg, #805d48, #634338);
+    }
+
+    .amo-hair-back-new::before {
+      left: -4px;
+      transform: rotate(8deg);
+    }
+
+    .amo-hair-back-new::after {
+      right: -4px;
+      transform: rotate(-8deg);
+    }
+
+    .amo-head-new {
+      position: absolute;
+      left: 50%;
+      top: 14%;
+      width: 146px;
+      height: 158px;
+      transform: translateX(-50%);
+      border-radius: 48% 48% 45% 45%;
+      background:
+        radial-gradient(circle at 50% 9%, rgba(255,255,255,.96), transparent 34%),
+        #fff6f4;
+      border: 4px solid rgba(255,255,255,.88);
+      box-shadow:
+        0 12px 24px rgba(183, 104, 144, .18),
+        inset 0 -8px 0 rgba(255,220,229,.42);
+      z-index: 5;
+    }
+
+    .amo-fringe-new {
+      position: absolute;
+      left: 50%;
+      top: -22px;
+      width: 160px;
+      height: 73px;
+      transform: translateX(-50%);
+      border-radius: 50% 50% 36% 36%;
+      background:
+        radial-gradient(ellipse at 20% 100%, transparent 0 41%, #7a5744 42% 100%),
+        radial-gradient(ellipse at 50% 100%, transparent 0 40%, #906953 41% 100%),
+        radial-gradient(ellipse at 80% 100%, transparent 0 41%, #7a5744 42% 100%);
+      z-index: 3;
+    }
+
+    .amo-eye-new {
+      position: absolute;
+      top: 64px;
+      width: 24px;
+      height: 32px;
+      border-radius: 48% 48% 54% 54%;
+      background:
+        radial-gradient(circle at 38% 25%, #fff 0 5px, transparent 6px),
+        radial-gradient(circle at 65% 72%, #fff 0 3px, transparent 4px),
+        linear-gradient(180deg, #4a4459 0 26%, #49b9df 27% 64%, #94e5ff 65% 100%);
+      box-shadow: 0 2px 0 rgba(86,65,83,.18);
+    }
+
+    .amo-eye-new.left { left: 31px; }
+    .amo-eye-new.right { right: 31px; }
+
+    .amo-brow-new {
+      position: absolute;
+      top: 51px;
+      width: 22px;
+      height: 8px;
+      border-top: 3px solid #755249;
+      border-radius: 50%;
+    }
+
+    .amo-brow-new.left { left: 30px; transform: rotate(-4deg); }
+    .amo-brow-new.right { right: 30px; transform: rotate(4deg); }
+
+    .amo-cheek-new {
+      position: absolute;
+      top: 102px;
+      width: 28px;
+      height: 13px;
+      border-radius: 50%;
+      background: rgba(255, 146, 184, .38);
+    }
+
+    .amo-cheek-new.left { left: 10px; }
+    .amo-cheek-new.right { right: 10px; }
+
+    .amo-mouth-new {
+      position: absolute;
+      left: 50%;
+      top: 111px;
+      width: 22px;
+      height: 12px;
+      transform: translateX(-50%);
+      border-bottom: 4px solid #e77fa5;
+      border-radius: 0 0 16px 16px;
+    }
+
+    .amo-star-pin-new {
+      position: absolute;
+      right: 7px;
+      top: 28px;
+      color: #fff2a1;
+      font-size: 1.65rem;
+      text-shadow:
+        0 0 5px #fff,
+        0 0 12px #ff9fc6,
+        0 0 18px #6fd5ff;
+      transform: rotate(12deg);
+      z-index: 5;
+    }
+
+    .amo-neck-new {
+      position: absolute;
+      left: 50%;
+      top: 48%;
+      width: 27px;
+      height: 29px;
+      transform: translateX(-50%);
+      border-radius: 10px;
+      background: #fff2ef;
+      z-index: 3;
+    }
+
+    .amo-outfit-new {
+      position: absolute;
+      left: 50%;
+      top: 48%;
+      width: 172px;
+      height: 205px;
+      transform: translateX(-50%);
+      z-index: 4;
+    }
+
+    .amo-outfit-new::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 8px;
+      width: 120px;
+      height: 104px;
+      transform: translateX(-50%);
+      border-radius: 34px 34px 20px 20px;
+      background:
+        linear-gradient(180deg, #fff 0 28%, #ffafd0 29% 70%, #ff89b9 71% 100%);
+      border: 4px solid rgba(255,255,255,.82);
+      box-shadow: 0 12px 22px rgba(211,111,161,.18);
+    }
+
+    .amo-collar-new {
+      position: absolute;
+      left: 50%;
+      top: 9px;
+      width: 94px;
+      height: 48px;
+      transform: translateX(-50%);
+      clip-path: polygon(0 0, 50% 68%, 100% 0, 84% 100%, 50% 73%, 16% 100%);
+      background: linear-gradient(135deg, #6fd5ff, #c8f3ff);
+      z-index: 3;
+    }
+
+    .amo-bow-new {
+      position: absolute;
+      left: 50%;
+      top: 44px;
+      width: 74px;
+      height: 37px;
+      transform: translateX(-50%);
+      z-index: 4;
+    }
+
+    .amo-bow-new::before,
+    .amo-bow-new::after {
+      content: "";
+      position: absolute;
+      top: 5px;
+      width: 34px;
+      height: 28px;
+      background: #ff83b5;
+      border-radius: 55% 22% 55% 22%;
+      border: 3px solid rgba(255,255,255,.75);
+    }
+
+    .amo-bow-new::before { left: 0; transform: rotate(-8deg); }
+    .amo-bow-new::after { right: 0; transform: rotate(8deg) scaleX(-1); }
+
+    .amo-bow-new span {
+      position: absolute;
+      left: 50%;
+      top: 7px;
+      transform: translateX(-50%);
+      color: #fff1a1;
+      font-size: 1.45rem;
+      text-shadow: 0 0 8px white, 0 0 13px #67d5ff;
+      z-index: 3;
+    }
+
+    .amo-waist-new {
+      position: absolute;
+      left: 50%;
+      top: 100px;
+      width: 116px;
+      height: 20px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: linear-gradient(90deg, #5ccbf3, #c8f3ff, #5ccbf3);
+      border: 3px solid rgba(255,255,255,.7);
+      z-index: 4;
+    }
+
+    .amo-skirt-new {
+      position: absolute;
+      left: 50%;
+      top: 109px;
+      width: 160px;
+      height: 72px;
+      transform: translateX(-50%);
+      clip-path: polygon(20% 0, 80% 0, 100% 100%, 78% 87%, 62% 100%, 50% 86%, 38% 100%, 22% 87%, 0 100%);
+      background:
+        repeating-linear-gradient(90deg, #ff9fc6 0 26px, #ffd4e6 26px 52px);
+      border-top: 4px solid rgba(255,255,255,.8);
+      z-index: 2;
+    }
+
+    .amo-arm-new {
+      position: absolute;
+      top: 49px;
+      width: 67px;
+      height: 25px;
+      border-radius: 999px;
+      background: #fff2ef;
+      border: 4px solid rgba(255,255,255,.78);
+      z-index: -1;
+    }
+
+    .amo-arm-new.left { left: -34px; transform: rotate(29deg); }
+    .amo-arm-new.right { right: -34px; transform: rotate(-29deg); }
+
+    .amo-glove-new {
+      position: absolute;
+      top: 72px;
+      width: 31px;
+      height: 36px;
+      border-radius: 15px 15px 18px 18px;
+      background: linear-gradient(#fff, #c9f3ff);
+      border: 3px solid rgba(255,255,255,.78);
+    }
+
+    .amo-glove-new.left { left: -40px; transform: rotate(18deg); }
+    .amo-glove-new.right { right: -40px; transform: rotate(-18deg); }
+
+    .amo-leg-new {
+      position: absolute;
+      top: 173px;
+      width: 30px;
+      height: 67px;
+      border-radius: 14px;
+      background: #fff2ef;
+      border: 3px solid rgba(255,255,255,.65);
+      z-index: -1;
+    }
+
+    .amo-leg-new.left { left: 45px; }
+    .amo-leg-new.right { right: 45px; }
+
+    .amo-boot-new {
+      position: absolute;
+      top: 220px;
+      width: 43px;
+      height: 63px;
+      border-radius: 18px 18px 25px 25px;
+      background: linear-gradient(#fff, #8edfff 55%, #ff9fc6 56%);
+      border: 4px solid rgba(255,255,255,.8);
+      z-index: 4;
+    }
+
+    .amo-boot-new.left { left: 35px; transform: rotate(5deg); }
+    .amo-boot-new.right { right: 35px; transform: rotate(-5deg); }
+
+    .amo-twin-ribbon-new {
+      position: absolute;
+      top: 14%;
+      width: 58px;
+      height: 48px;
+      z-index: 7;
+    }
+
+    .amo-twin-ribbon-new::before,
+    .amo-twin-ribbon-new::after {
+      content: "";
+      position: absolute;
+      width: 31px;
+      height: 38px;
+      background: linear-gradient(145deg, #ff8db9, #6fd5ff);
+      border: 3px solid rgba(255,255,255,.78);
+    }
+
+    .amo-twin-ribbon-new::before {
+      left: 0;
+      border-radius: 62% 18% 62% 18%;
+      transform: rotate(-14deg);
+    }
+
+    .amo-twin-ribbon-new::after {
+      right: 0;
+      border-radius: 18% 62% 18% 62%;
+      transform: rotate(14deg);
+    }
+
+    .amo-twin-ribbon-new.left { left: 61px; transform: rotate(-12deg); }
+    .amo-twin-ribbon-new.right { right: 61px; transform: rotate(12deg); }
+
+    .amo-wand-new {
+      position: absolute;
+      right: 27px;
+      bottom: 52px;
+      width: 54px;
+      height: 145px;
+      transform: rotate(17deg);
+      z-index: 8;
+    }
+
+    .amo-wand-new::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 42px;
+      width: 12px;
+      height: 96px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: linear-gradient(#fff, #69d2fb 46%, #ff91bd);
+      box-shadow: 0 0 12px rgba(92,203,243,.7);
+    }
+
+    .amo-wand-new span {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      color: #fff2a1;
+      font-size: 3rem;
+      text-shadow:
+        0 0 8px white,
+        0 0 16px #ff8fbd,
+        0 0 23px #60d1fb;
+    }
+
+    .amo-name-new {
+      position: absolute;
+      left: 50%;
+      bottom: 17px;
+      transform: translateX(-50%);
+      padding: 6px 16px;
+      border-radius: 999px;
+      color: white;
+      background: linear-gradient(135deg, #ff84b7, #69d2fb);
+      border: 3px solid rgba(255,255,255,.8);
+      box-shadow: 0 8px 18px rgba(204,110,164,.2);
+      font-weight: 900;
+      z-index: 10;
+    }
+
+    @media (max-width: 560px) {
+      .amo-illustration {
+        transform: scale(.9);
+        transform-origin: center bottom;
+      }
+    }
+
+
+    /* 生成イラスト表示用 */
+    .generated-art-card {
+      width: min(430px, 92vw);
+      aspect-ratio: auto;
+      padding: 14px;
+      border-radius: 38px;
+      overflow: visible;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.92), rgba(224,249,255,0.82));
+      border: 8px solid rgba(255,255,255,0.82);
+      box-shadow:
+        0 30px 60px rgba(220, 110, 165, 0.22),
+        0 0 34px rgba(132, 220, 255, 0.25);
+      transform: rotate(1deg);
+    }
+
+    .generated-amo-art {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 28px;
+      object-fit: cover;
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.7),
+        0 18px 36px rgba(206, 111, 159, 0.18);
+    }
+
+    .generated-art-card .amo-friends-label {
+      left: 20px;
+      top: 20px;
+      color: #7c6073;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(143, 220, 255, 0.7);
+    }
+
+    .generated-art-card .mini-star.one {
+      left: -18px;
+      top: 20%;
+    }
+
+    .generated-art-card .mini-star.two {
+      right: -18px;
+      bottom: 20%;
+    }
+
+
+    /* ===== 人物なし：星の宝石とみるるのメインビジュアル ===== */
+    .generated-art-card,
+    .generated-amo-art {
+      display: none !important;
+    }
+
+    .mascot-scene {
+      width: min(430px, 92vw);
+      min-height: 520px;
+      aspect-ratio: auto;
+      position: relative;
+      overflow: hidden;
+      border-radius: 44px;
+      border: 9px solid rgba(255,255,255,0.84);
+      background:
+        radial-gradient(circle at 50% 22%, rgba(255,255,255,0.98) 0 4%, transparent 5%),
+        radial-gradient(circle at 20% 28%, rgba(255,255,255,0.85) 0 2%, transparent 3%),
+        radial-gradient(circle at 82% 35%, rgba(255,255,255,0.9) 0 2%, transparent 3%),
+        linear-gradient(155deg, #ffe7f1 0%, #ffd2e5 54%, #dff7ff 100%);
+      box-shadow:
+        0 32px 65px rgba(220, 110, 165, 0.24),
+        0 0 38px rgba(120, 214, 255, 0.28);
+      transform: rotate(1deg);
+    }
+
+    .moon-glow {
+      position: absolute;
+      left: 50%;
+      top: 9%;
+      width: 220px;
+      height: 220px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.96), rgba(214,247,255,0.58) 48%, transparent 72%);
+      filter: blur(2px);
+    }
+
+    .gem-star {
+      position: absolute;
+      left: 50%;
+      top: 9%;
+      width: 190px;
+      height: 190px;
+      transform: translateX(-50%);
+      clip-path: polygon(50% 0%, 61% 34%, 96% 36%, 68% 57%, 79% 92%, 50% 72%, 21% 92%, 32% 57%, 4% 36%, 39% 34%);
+      background:
+        conic-gradient(from 12deg, #fff9c8, #ff9bc4 18%, #8fdcff 38%, #ffffff 53%, #ffadd0 72%, #8fdcff 88%, #fff9c8);
+      border: 5px solid rgba(255,255,255,0.84);
+      box-shadow:
+        0 18px 34px rgba(219, 111, 167, 0.23),
+        0 0 32px rgba(255,255,255,0.96);
+      z-index: 3;
+      animation: gemFloat 3s ease-in-out infinite alternate;
+    }
+
+    .gem-star::before {
+      content: "";
+      position: absolute;
+      inset: 34px;
+      clip-path: inherit;
+      background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(255,255,255,0.12));
+    }
+
+    .gem-core {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: #fff6a5;
+      font-size: 4.6rem;
+      text-shadow:
+        0 0 12px white,
+        0 0 26px #ffb2d0,
+        0 0 38px #8fddff;
+      z-index: 2;
+    }
+
+    @keyframes gemFloat {
+      to {
+        transform: translateX(-50%) translateY(-10px) rotate(3deg);
+      }
+    }
+
+    .miruru {
+      position: absolute;
+      left: 50%;
+      bottom: 10%;
+      width: 230px;
+      height: 245px;
+      transform: translateX(-50%);
+      z-index: 5;
+    }
+
+    .miruru-ear {
+      position: absolute;
+      top: 0;
+      width: 64px;
+      height: 126px;
+      border: 5px solid rgba(255,255,255,0.86);
+      border-radius: 50% 50% 42% 42%;
+      background:
+        linear-gradient(90deg, #ffffff 0 28%, #ffc9dd 29% 70%, #ffffff 71%);
+      box-shadow: 0 9px 18px rgba(207, 118, 164, 0.12);
+      z-index: 1;
+    }
+
+    .miruru-ear.left {
+      left: 35px;
+      transform: rotate(-12deg);
+    }
+
+    .miruru-ear.right {
+      right: 35px;
+      transform: rotate(12deg);
+    }
+
+    .miruru-head {
+      position: absolute;
+      left: 50%;
+      top: 63px;
+      width: 175px;
+      height: 150px;
+      transform: translateX(-50%);
+      border-radius: 48% 48% 44% 44%;
+      border: 6px solid rgba(255,255,255,0.88);
+      background: #fffefe;
+      box-shadow:
+        0 16px 28px rgba(207, 115, 162, 0.17),
+        inset 0 -9px 0 rgba(255,225,237,0.55);
+      z-index: 3;
+    }
+
+    .miruru-eye {
+      position: absolute;
+      top: 57px;
+      width: 20px;
+      height: 28px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 28%, white 0 4px, transparent 5px),
+        linear-gradient(#664f63, #9e72c7);
+    }
+
+    .miruru-eye.left { left: 42px; }
+    .miruru-eye.right { right: 42px; }
+
+    .miruru-cheek {
+      position: absolute;
+      top: 91px;
+      width: 30px;
+      height: 15px;
+      border-radius: 50%;
+      background: rgba(255,158,194,0.48);
+    }
+
+    .miruru-cheek.left { left: 18px; }
+    .miruru-cheek.right { right: 18px; }
+
+    .miruru-mouth {
+      position: absolute;
+      left: 50%;
+      top: 91px;
+      transform: translateX(-50%);
+      color: #e889aa;
+      font-size: 1.45rem;
+      font-weight: 900;
+    }
+
+    .miruru-body {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 155px;
+      height: 110px;
+      transform: translateX(-50%);
+      border-radius: 46% 46% 34% 34%;
+      border: 6px solid rgba(255,255,255,0.86);
+      background: linear-gradient(180deg, #ffffff, #fff3f8);
+      box-shadow: 0 14px 24px rgba(207, 115, 162, 0.16);
+      z-index: 2;
+    }
+
+    .miruru-bow {
+      position: absolute;
+      left: 50%;
+      top: 8px;
+      width: 62px;
+      height: 36px;
+      transform: translateX(-50%);
+    }
+
+    .miruru-bow::before,
+    .miruru-bow::after {
+      content: "";
+      position: absolute;
+      top: 5px;
+      width: 29px;
+      height: 26px;
+      background: linear-gradient(145deg, #8fdcff, #5bc8f2);
+      border: 3px solid rgba(255,255,255,0.8);
+    }
+
+    .miruru-bow::before {
+      left: 0;
+      border-radius: 60% 20% 60% 20%;
+      transform: rotate(-12deg);
+    }
+
+    .miruru-bow::after {
+      right: 0;
+      border-radius: 20% 60% 20% 60%;
+      transform: rotate(12deg);
+    }
+
+    .miruru-arm,
+    .miruru-foot {
+      position: absolute;
+      border: 5px solid rgba(255,255,255,0.84);
+      background: #fffefe;
+    }
+
+    .miruru-arm {
+      top: 34px;
+      width: 48px;
+      height: 32px;
+      border-radius: 999px;
+    }
+
+    .miruru-arm.left { left: -30px; transform: rotate(14deg); }
+    .miruru-arm.right { right: -30px; transform: rotate(-14deg); }
+
+    .miruru-foot {
+      bottom: -22px;
+      width: 52px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .miruru-foot.left { left: 13px; }
+    .miruru-foot.right { right: 13px; }
+
+    .amo-orb {
+      position: absolute;
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: white;
+      background: linear-gradient(145deg, #ff9fc5, #8fdcff);
+      border: 4px solid rgba(255,255,255,0.86);
+      box-shadow:
+        0 10px 20px rgba(210,113,169,0.2),
+        0 0 18px rgba(255,255,255,0.88);
+      font-size: 1.6rem;
+      z-index: 4;
+      animation: orbFloat 2.8s ease-in-out infinite alternate;
+    }
+
+    .orb-one { left: 9%; top: 42%; }
+    .orb-two { right: 8%; top: 39%; animation-delay: .5s; }
+    .orb-three { right: 13%; bottom: 17%; animation-delay: .9s; }
+
+    @keyframes orbFloat {
+      to { transform: translateY(-12px) rotate(7deg); }
+    }
+
+    .mascot-label {
+      position: absolute;
+      left: 50%;
+      bottom: 2.5%;
+      transform: translateX(-50%);
+      padding: 7px 15px;
+      border-radius: 999px;
+      color: #7d6071;
+      background: rgba(255,255,255,0.86);
+      border: 1px solid rgba(143,220,255,0.74);
+      box-shadow: 0 8px 20px rgba(205,113,164,0.16);
+      font-size: .82rem;
+      font-weight: 900;
+      white-space: nowrap;
+      z-index: 8;
+    }
+
+    @media (max-width: 560px) {
+      .mascot-scene {
+        min-height: 470px;
+      }
+
+      .gem-star {
+        width: 160px;
+        height: 160px;
+      }
+
+      .gem-core {
+        font-size: 3.8rem;
+      }
+
+      .miruru {
+        width: 210px;
+        height: 225px;
+      }
+    }
+
+</style>
+</head>
+
+<body>
+  <div class="background-decoration" id="backgroundStars" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="logo" href="#top">
+      <span class="logo-mark">★</span>
+      <span>AMO-CHANZU MAGICAL ROOM</span>
+    </a>
+
+    <nav class="nav" aria-label="メインメニュー">
+      <a href="#about">About</a>
+      <a href="#favorites">Favorites</a>
+      <a href="#days">My Days</a>
+      <a href="#message">Message</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero container">
+      <div class="hero-text">
+        <div class="eyebrow">
+          <span>★</span>
+          Welcome to my magical sparkling world
+        </div>
+
+        <h1>
+          <span class="hero-greeting">はじめまして、</span><br>
+          <span class="name-highlight">あもちゃんず</span><span class="hero-ending">の世界です。</span>
+        </h1>
+
+        <p class="hero-copy">
+          星の宝石と白うさぎのみるるが暮らす、架空のきらきら世界です。
+          小さな仲間グループ「あもちゃんず」が、ほしみ野の街でゆるく冒険しています。
+        </p>
+
+        <div class="hero-actions">
+          <a class="button button-primary sparkle-button" href="#about">
+            ★ プロフィールを見る
+          </a>
+
+          <button class="button button-secondary" type="button" id="kirakiraButton">
+            ✦ キラキラを増やす
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-card-wrap" aria-label="あもちゃんの架空イメージ">
+        <div class="orbit" aria-hidden="true"></div>
+
+        <div class="profile-visual mascot-scene">
+          <div class="moon-glow" aria-hidden="true"></div>
+
+          <div class="gem-star" aria-label="星の宝石">
+            <span class="gem-core">✦</span>
+          </div>
+
+          <div class="miruru" aria-label="白うさぎのぬいぐるみ みるる">
+            <div class="miruru-ear left"></div>
+            <div class="miruru-ear right"></div>
+            <div class="miruru-head">
+              <span class="miruru-eye left"></span>
+              <span class="miruru-eye right"></span>
+              <span class="miruru-cheek left"></span>
+              <span class="miruru-cheek right"></span>
+              <span class="miruru-mouth">ω</span>
+            </div>
+            <div class="miruru-body">
+              <span class="miruru-bow"></span>
+              <span class="miruru-arm left"></span>
+              <span class="miruru-arm right"></span>
+              <span class="miruru-foot left"></span>
+              <span class="miruru-foot right"></span>
+            </div>
+          </div>
+
+          <div class="amo-orb orb-one">★</div>
+          <div class="amo-orb orb-two">✦</div>
+          <div class="amo-orb orb-three">☾</div>
+
+          <div class="mascot-label">あもちゃんずの魔法アイテム</div>
+          <span class="mini-star one">✦</span>
+          <span class="mini-star two">★</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container" id="about">
+      <div class="section-heading">
+        <span>About me</span>
+        <h2>あもちゃんずについて</h2>
+      </div>
+
+      <div class="glass-card about-card">
+        <div class="about-message">
+          <h3>星と宝石がきらめく、小さな世界。</h3>
+
+          <p>
+            星の宝石、白うさぎのみるる、甘いいちごミルクなど、かわいいモチーフが集まった架空の世界です。
+            あもちゃんずは、ほしみ野の小さな幸せを集めています。
+          </p>
+        </div>
+
+        <dl class="profile-list">
+          <div class="profile-item">
+            <dt>TEAM NAME</dt>
+            <dd>あもちゃんず</dd>
+          </div>
+
+          <div class="profile-item">
+            <dt>BIRTHDAY</dt>
+            <dd>3月3日</dd>
+          </div>
+
+          <div class="profile-item">
+            <dt>HOME</dt>
+            <dd>架空の街・ほしみ野</dd>
+          </div>
+
+          <div class="profile-item">
+            <dt>WORLD</dt>
+            <dd>星と宝石がきらめく架空世界</dd>
+          </div>
+
+          <div class="profile-item">
+            <dt>MAGIC ITEM</dt>
+            <dd>ハートジュエル・スター</dd>
+          </div>
+
+          <div class="profile-item">
+            <dt>MASCOT</dt>
+            <dd>白うさぎの「みるる」</dd>
+          </div>
+
+          <div class="profile-item">
+            <dt>MEMBERS</dt>
+            <dd>星・月・リボンの小さな仲間たち</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section container" id="favorites">
+      <div class="section-heading">
+        <span>Favorites</span>
+        <h2>好きなもの</h2>
+      </div>
+
+      <div class="favorite-grid">
+        <article class="glass-card favorite-card">
+          <div class="favorite-icon">★</div>
+          <h3>星形シュガーの星形シュガーのいちごミルク</h3>
+          <p>
+            ミルク多めで、上に黄色い星形シュガーがのった甘い星形シュガーのいちごミルクが一番好きです。
+          </p>
+        </article>
+
+        <article class="glass-card favorite-card">
+          <div class="favorite-icon">☾</div>
+          <h3>黄色い黄色い星形ヘアピン</h3>
+          <p>
+            左側の前髪につけているお気に入り。変身すると、ぽっと淡く光ります。
+          </p>
+        </article>
+
+        <article class="glass-card favorite-card">
+          <div class="favorite-icon">🎀</div>
+          <h3>白うさぎのぬいぐるみ「みるる」「みるる」</h3>
+          <p>
+            長い耳にピンクのリボンをつけたぬいぐるみ。寝るときも一緒です。
+          </p>
+        </article>
+
+        <article class="glass-card favorite-card">
+          <div class="favorite-icon">🪽</div>
+          <h3>あもちゃんず</h3>
+          <p>
+            あもちゃんの仲間たち。色違いのリボンと小さな星の杖が目印です。
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section container" id="days">
+      <div class="section-heading">
+        <span>My days</span>
+        <h2>最近のあもちゃん</h2>
+      </div>
+
+      <div class="timeline">
+        <article class="glass-card timeline-item">
+          <div class="timeline-date">MONDAY</div>
+          <h3>新しい魔法の呪文を覚えました</h3>
+          <p>
+            小さな星を三つだけ呼び出せる「ミニ・ステラ」を習得しました。
+          </p>
+        </article>
+
+        <article class="glass-card timeline-item">
+          <div class="timeline-date">WEDNESDAY</div>
+          <h3>あもちゃんずと放課後パトロール</h3>
+          <p>
+            あもちゃんずのみんなと、ほしみ野で迷子の星のかけらを探しました。
+          </p>
+        </article>
+
+        <article class="glass-card timeline-item">
+          <div class="timeline-date">SATURDAY</div>
+          <h3>新しい変身ポーズを練習中</h3>
+          <p>
+            リボンと星がきれいに見えるように、鏡の前で研究しています。
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section container" id="message">
+      <div class="section-heading">
+        <span>Message</span>
+        <h2>遊びに来てくれてありがとう</h2>
+      </div>
+
+      <div class="glass-card message-card">
+        <p>
+          このサイトを見て、少しでも魔法に包まれたような楽しい気持ちになってもらえたらうれしいです。
+          今日もあなたの心に、小さな星の光が届きますように。
+        </p>
+
+        <button class="magic-star-button sparkle-button" type="button" id="messageButton" aria-label="あもちゃんずに魔力を送る">
+          <span class="gemstar-jewel" aria-hidden="true"></span>
+          <span class="gemstar-centerstar" aria-hidden="true">★</span>
+          <span class="gemstar-label">あもちゃんに<br>魔力を送る</span>
+          <span class="gemstar-sparkle s1" aria-hidden="true">✦</span>
+          <span class="gemstar-sparkle s2" aria-hidden="true">✧</span>
+          <span class="gemstar-sparkle s3" aria-hidden="true">★</span>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span class="footer-star">★</span>
+    This is a fictional profile website for Amo-chan.
+    <span class="footer-star">★</span>
+  </footer>
+
+  <div class="transformation-flash" id="transformationFlash" aria-hidden="true"></div>
+
+  <div class="click-message" id="clickMessage" role="status" aria-live="polite">
+    魔力をありがとう！星の宝石が輝きました ★
+  </div>
+
+  <script>
+    const backgroundStars = document.getElementById("backgroundStars");
+    const kirakiraButton = document.getElementById("kirakiraButton");
+    const messageButton = document.getElementById("messageButton");
+    const clickMessage = document.getElementById("clickMessage");
+    const transformationFlash = document.getElementById("transformationFlash");
+
+    function createBackgroundStar() {
+      const star = document.createElement("span");
+      const symbols = ["★", "✦", "✧", "⋆"];
+
+      star.className = "floating-star";
+      star.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+
+      star.style.left = Math.random() * 100 + "%";
+      star.style.top = Math.random() * 100 + "%";
+      star.style.fontSize = 10 + Math.random() * 20 + "px";
+      star.style.setProperty(
+        "--duration",
+        3 + Math.random() * 5 + "s"
+      );
+      star.style.animationDelay = -Math.random() * 5 + "s";
+
+      backgroundStars.appendChild(star);
+    }
+
+    for (let i = 0; i < 30; i++) {
+      createBackgroundStar();
+    }
+
+    function createSparkle(x, y, amount = 1) {
+      const symbols = ["★", "✦", "✧", "✩", "❇"];
+      const colors = ["#fff45c", "#ff4f9a", "#40c7f4", "#ffffff", "#ff98c4"];
+
+      for (let i = 0; i < amount; i++) {
+        const sparkle = document.createElement("span");
+
+        sparkle.className = "cursor-star";
+        sparkle.textContent =
+          symbols[Math.floor(Math.random() * symbols.length)];
+
+        sparkle.style.left =
+          x + (Math.random() - 0.5) * 34 + "px";
+
+        sparkle.style.top =
+          y + (Math.random() - 0.5) * 26 + "px";
+
+        sparkle.style.fontSize =
+          11 + Math.random() * 15 + "px";
+
+        sparkle.style.color =
+          colors[Math.floor(Math.random() * colors.length)];
+
+        sparkle.style.animationDuration =
+          700 + Math.random() * 380 + "ms";
+
+        document.body.appendChild(sparkle);
+
+        setTimeout(function() {
+          sparkle.remove();
+        }, 1100);
+      }
+    }
+
+    let lastMove = 0;
+    let lastPointer = null;
+
+    document.addEventListener("pointermove", function(event) {
+      const now = Date.now();
+
+      if (now - lastMove < 32) {
+        return;
+      }
+
+      if (lastPointer) {
+        const midX = (event.clientX + lastPointer.x) / 2;
+        const midY = (event.clientY + lastPointer.y) / 2;
+        createSparkle(midX, midY, 1);
+      }
+
+      lastMove = now;
+      lastPointer = { x: event.clientX, y: event.clientY };
+
+      createSparkle(event.clientX, event.clientY, 2);
+    });
+
+    document.addEventListener("click", function(event) {
+      createSparkle(event.clientX, event.clientY, 6);
+    });
+
+    kirakiraButton.addEventListener("click", function() {
+      for (let i = 0; i < 14; i++) {
+        createBackgroundStar();
+      }
+
+      kirakiraButton.textContent = "✦ キラキラが増えました！";
+
+      setTimeout(function() {
+        kirakiraButton.textContent = "✦ キラキラを増やす";
+      }, 1800);
+    });
+
+    let messageTimer;
+
+    messageButton.addEventListener("click", function() {
+      clickMessage.classList.add("show");
+      transformationFlash.classList.remove("active");
+      void transformationFlash.offsetWidth;
+      transformationFlash.classList.add("active");
+
+      const rect = messageButton.getBoundingClientRect();
+
+      createSparkle(
+        rect.left + rect.width / 2,
+        rect.top + rect.height / 2,
+        18
+      );
+
+      clearTimeout(messageTimer);
+
+      messageTimer = setTimeout(function() {
+        clickMessage.classList.remove("show");
+      }, 2300);
+    });
+  </script>
+</body>
+</html>
