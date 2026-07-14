@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>† 星屑電脳倶楽部 †</title>
+<style>
+  * { box-sizing: border-box; }
+
+  html {
+    background:
+      linear-gradient(rgba(0,0,55,.45), rgba(0,0,55,.45)),
+      repeating-linear-gradient(0deg, #00001e 0 2px, #00002d 2px 4px);
+  }
+
+  body {
+    margin: 0;
+    color: #ffffff;
+    font-family: "MS PGothic", "ＭＳ Ｐゴシック", Osaka, Arial, sans-serif;
+    font-size: 14px;
+    cursor: crosshair;
+  }
+
+  a:link { color: #66ffff; }
+  a:visited { color: #ff99ff; }
+  a:hover {
+    color: #ffff00;
+    background: #660066;
+    text-decoration: none;
+  }
+
+  .page {
+    width: 760px;
+    margin: 14px auto 40px;
+    border: 4px ridge #99ccff;
+    background: #000033;
+    box-shadow: 0 0 25px #00ccff;
+  }
+
+  .topbar {
+    padding: 4px 8px;
+    color: #000;
+    background: linear-gradient(90deg, #00ffff, #ff66ff, #ffff66, #00ffff);
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 3px ridge #fff;
+  }
+
+  .hero {
+    padding: 14px 12px 10px;
+    text-align: center;
+    background:
+      radial-gradient(circle at 20% 25%, #fff 0 1px, transparent 2px),
+      radial-gradient(circle at 70% 45%, #ff9 0 1px, transparent 2px),
+      radial-gradient(circle at 40% 70%, #6ff 0 1px, transparent 2px),
+      linear-gradient(#000019, #180044);
+    background-size: 33px 33px, 47px 47px, 61px 61px, auto;
+  }
+
+  .hero h1 {
+    margin: 0;
+    color: #fff;
+    font-family: "Comic Sans MS", "MS PGothic", sans-serif;
+    font-size: 36px;
+    letter-spacing: 4px;
+    text-shadow:
+      2px 2px 0 #ff00cc,
+      -2px -2px 0 #00ccff,
+      0 0 12px #ffffff;
+  }
+
+  .subtitle {
+    margin-top: 5px;
+    color: #ffff66;
+    font-size: 12px;
+  }
+
+  .blink {
+    animation: blink 0.8s steps(1) infinite;
+    color: #ff66cc;
+    font-weight: bold;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .marquee {
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 2px groove #ff99ff;
+    border-bottom: 2px groove #ff99ff;
+    background: #120012;
+    color: #ffff00;
+    padding: 4px 0;
+  }
+
+  .marquee span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll 14s linear infinite;
+  }
+
+  @keyframes scroll {
+    to { transform: translateX(-100%); }
+  }
+
+  .counter-area {
+    text-align: center;
+    padding: 8px;
+    background: #000;
+    border-bottom: 3px double #00ffff;
+  }
+
+  .counter {
+    display: inline-block;
+    padding: 3px 7px;
+    color: #ff3333;
+    background: #111;
+    border: 2px inset #aaa;
+    font-family: "Courier New", monospace;
+    font-size: 22px;
+    letter-spacing: 3px;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .box {
+    margin-bottom: 8px;
+    border: 3px ridge #9999ff;
+    background: #05003b;
+  }
+
+  .box-title {
+    padding: 3px 6px;
+    color: #000033;
+    background: linear-gradient(90deg, #66ffff, #ff99ff);
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 2px ridge #fff;
+  }
+
+  .box-body {
+    padding: 8px;
+    line-height: 1.6;
+  }
+
+  .menu a {
+    display: block;
+    margin: 4px 0;
+    padding: 3px 5px;
+    border: 1px dashed #66ffff;
+    background: #00114b;
+    text-decoration: none;
+  }
+
+  .menu a::before { content: "★ "; color: #ffff00; }
+
+  .mini {
+    font-size: 11px;
+    color: #ccccff;
+  }
+
+  .new {
+    color: #ff3333;
+    font-weight: bold;
+    animation: blink 1s steps(1) infinite;
+  }
+
+  .profile-table,
+  .diary-table,
+  .bbs-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .profile-table th,
+  .profile-table td,
+  .diary-table th,
+  .diary-table td,
+  .bbs-table th,
+  .bbs-table td {
+    border: 1px solid #6699cc;
+    padding: 4px 6px;
+  }
+
+  .profile-table th,
+  .diary-table th {
+    width: 28%;
+    color: #ffff99;
+    background: #130066;
+  }
+
+  .diary-date {
+    color: #66ffff;
+    font-weight: bold;
+  }
+
+  .ascii {
+    color: #99ffff;
+    background: #000;
+    border: 2px inset #777;
+    padding: 8px;
+    font-family: monospace;
+    white-space: pre;
+    overflow-x: auto;
+    text-align: center;
+  }
+
+  .notice {
+    margin: 6px 0;
+    padding: 6px;
+    color: #ffffcc;
+    background: #330033;
+    border: 1px dashed #ff66ff;
+  }
+
+  .button88 {
+    display: inline-flex;
+    width: 88px;
+    height: 31px;
+    align-items: center;
+    justify-content: center;
+    margin: 3px;
+    color: white !important;
+    background:
+      linear-gradient(135deg, #ff00aa, #330066 45%, #00ccff);
+    border: 2px outset #ccc;
+    font-size: 10px;
+    line-height: 1.1;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .button88:hover {
+    border-style: inset;
+    filter: brightness(1.25);
+  }
+
+  .bbs-form label {
+    display: block;
+    margin-top: 5px;
+    color: #ffff99;
+  }
+
+  input, textarea, select, button {
+    font-family: "MS PGothic", sans-serif;
+    font-size: 13px;
+  }
+
+  input, textarea, select {
+    width: 100%;
+    color: #fff;
+    background: #000022;
+    border: 2px inset #99aaff;
+  }
+
+  textarea { min-height: 70px; resize: vertical; }
+
+  button {
+    margin-top: 7px;
+    padding: 4px 16px;
+    color: #000;
+    background: #cccccc;
+    border: 3px outset #fff;
+    cursor: pointer;
+  }
+
+  button:active { border-style: inset; }
+
+  .bbs-entry {
+    margin: 8px 0;
+    padding: 6px;
+    background: #001244;
+    border: 1px dashed #66ffff;
+  }
+
+  .bbs-meta {
+    color: #ffff66;
+    font-size: 11px;
+  }
+
+  .footer {
+    padding: 10px;
+    color: #ccccff;
+    background: #000011;
+    border-top: 3px ridge #9999ff;
+    font-size: 11px;
+    text-align: center;
+  }
+
+  .back-top {
+    display: block;
+    margin-top: 8px;
+    text-align: right;
+  }
+
+  .sparkle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    color: #ffff66;
+    font-size: 14px;
+    animation: fade 700ms linear forwards;
+  }
+
+  @keyframes fade {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to { opacity: 0; transform: translateY(-18px) scale(.3); }
+  }
+
+  @media (max-width: 800px) {
+    .page { width: calc(100% - 12px); margin-top: 6px; }
+    .layout { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 25px; letter-spacing: 1px; }
+  }
+</style>
+</head>
+
+<body>
+<div class="page" id="top">
+
+  <div class="topbar">
+    Internet Explorer 6.0 / 1024×768 推奨　音が鳴るかもしれません♪
+  </div>
+
+  <header class="hero">
+    <div class="blink">★ ようこそ電脳世界へ ★</div>
+    <h1>† 星屑電脳倶楽部 †</h1>
+    <div class="subtitle">～ 管理人・月城ミナトの趣味全開ホームページ ～</div>
+  </header>
+
+  <div class="marquee">
+    <span>◆◆ 次のキリ番は 22222 です！踏んだ方は掲示板で報告してね☆　無断転載・直リンクは禁止です ◆◆</span>
+  </div>
+
+  <div class="counter-area">
+    あなたは
+    <span class="counter" id="counter">021337</span>
+    人目のお客様です<br>
+    <span class="mini">昨日：42人　今日：13人　オンライン：たぶん3人</span>
+  </div>
+
+  <main class="layout">
+    <aside>
+      <section class="box">
+        <div class="box-title">★ MENU ★</div>
+        <div class="box-body menu">
+          <a href="#news">更新履歴</a>
+          <a href="#profile">プロフィール</a>
+          <a href="#diary">電脳日記</a>
+          <a href="#gallery">落書き倉庫</a>
+          <a href="#bbs">簡易掲示板</a>
+          <a href="#links">リンク集</a>
+        </div>
+      </section>
+
+      <section class="box">
+        <div class="box-title">時計</div>
+        <div class="box-body" style="text-align:center">
+          <div id="clock" style="font-family:monospace;font-size:18px;color:#66ffff">--:--:--</div>
+          <div class="mini">電脳標準時</div>
+        </div>
+      </section>
+
+      <section class="box">
+        <div class="box-title">管理人の状態</div>
+        <div class="box-body">
+          <b>HN：</b>月城ミナト<br>
+          <b>気分：</b>（´・ω・｀）<br>
+          <b>BGM：</b>深夜ラジオ<br>
+          <b>作業：</b>ドット絵修行中
+        </div>
+      </section>
+
+      <section class="box">
+        <div class="box-title">WEB拍手</div>
+        <div class="box-body" style="text-align:center">
+          <button type="button" onclick="clap()">拍手する</button>
+          <div id="clapText" class="mini">管理人が喜びます</div>
+        </div>
+      </section>
+
+      <section class="box">
+        <div class="box-title">注意事項</div>
+        <div class="box-body mini">
+          当サイトは実在の人物・団体とは関係ありません。プロフィール、日記、作品名はすべて架空です。
+        </div>
+      </section>
+    </aside>
+
+    <div>
+      <section class="box" id="news">
+        <div class="box-title">★ 更新履歴 ★</div>
+        <div class="box-body">
+          <span class="new">NEW!</span> 2006/08/19　トップ絵を夏仕様に変更<br>
+          2006/08/14　落書き倉庫に2枚追加<br>
+          2006/08/02　相互リンク様を1件追加<br>
+          2006/07/28　サイト開設一周年！
+        </div>
+      </section>
+
+      <section class="box" id="profile">
+        <div class="box-title">★ 管理人プロフィール ★</div>
+        <div class="box-body">
+          <table class="profile-table">
+            <tr><th>ハンドルネーム</th><td>月城ミナト（つきしろ みなと）</td></tr>
+            <tr><th>誕生日</th><td>2月29日という設定</td></tr>
+            <tr><th>生息地</th><td>北国のどこかにある架空都市・星見市</td></tr>
+            <tr><th>属性</th><td>夜型 / メカ好き / 積みゲー増殖中</td></tr>
+            <tr><th>好き</th><td>ロボットアニメ、同人ゲーム、FM音源、ドット絵、深夜ラジオ</td></tr>
+            <tr><th>苦手</th><td>早起き、雷、説明書を読むこと</td></tr>
+            <tr><th>使用PC</th><td>自作機「CYBER-01」※架空のパソコンです</td></tr>
+            <tr><th>座右の銘</th><td>セーブはこまめに。</td></tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="box" id="diary">
+        <div class="box-title">★ 電脳日記 ★</div>
+        <div class="box-body">
+          <div class="diary-date">2006年8月19日（土）　晴れ</div>
+          <p>
+            今日は朝までドット絵を打っていました。16×16の宇宙船なのに、
+            翼の形だけで二時間も悩んでしまった……。でも少しだけ格好よくなった気がします。
+            掲示板に感想をもらえて嬉しかったです（*´∀｀*）
+          </p>
+          <hr>
+          <div class="diary-date">2006年8月14日（月）　くもり</div>
+          <p>
+            架空の同人ゲーム「機装少女ネオンハート」の設定資料を更新。
+            主人公の武器名は「スターライト・レンチ」に決定しました。
+            たぶんレンチで戦うヒロインは世界初です。
+          </p>
+        </div>
+      </section>
+
+      <section class="box" id="gallery">
+        <div class="box-title">★ 落書き倉庫 ★</div>
+        <div class="box-body">
+          <div class="notice">
+            画像はありませんが、当時の「工事中ページ」っぽさを再現しています。
+          </div>
+          <div class="ascii">
+      .      *       .
+   *      /\_/\          *
+         ( o.o )    ☆
+          > ^ <       .
+  ------------------------
+     CYBER CAT Ver.0.9
+          </div>
+          <p style="text-align:center">
+            <span class="blink">ただいま工事中！！</span><br>
+            完成予定：未定（管理人のやる気次第）
+          </p>
+        </div>
+      </section>
+
+      <section class="box" id="bbs">
+        <div class="box-title">★ 簡易掲示板 ★</div>
+        <div class="box-body">
+          <div id="bbsEntries">
+            <div class="bbs-entry">
+              <b>サイト開設おめでとう！</b>
+              <div class="bbs-meta">投稿者：電波うさぎ　2006/07/28 23:41</div>
+              <div>レトロな雰囲気が最高です。これからも更新楽しみにしてます♪</div>
+            </div>
+            <div class="bbs-entry">
+              <b>キリ番踏みました</b>
+              <div class="bbs-meta">投稿者：名無しの旅人　2006/08/03 01:12</div>
+              <div>21000番でした！記念カキコです。</div>
+            </div>
+          </div>
+
+          <form class="bbs-form" onsubmit="postBbs(event)">
+            <label for="name">お名前</label>
+            <input id="name" maxlength="20" value="名無し">
+
+            <label for="subject">タイトル</label>
+            <input id="subject" maxlength="40" value="はじめまして">
+
+            <label for="message">本文</label>
+            <textarea id="message" maxlength="300">足跡ぺたり。</textarea>
+
+            <button type="submit">書き込む</button>
+          </form>
+          <div class="mini">※書き込みはこのブラウザ内だけに表示され、外部には送信されません。</div>
+        </div>
+      </section>
+
+      <section class="box" id="links">
+        <div class="box-title">★ リンク集 ★</div>
+        <div class="box-body">
+          <p>当サイトはリンクフリーです。報告は任意ですが、もらえると喜びます。</p>
+          <div style="text-align:center">
+            <a class="button88" href="#top">星屑電脳<br>倶楽部</a>
+            <a class="button88" href="#top">架空ゲーム<br>研究所</a>
+            <a class="button88" href="#top">深夜二時の<br>秘密基地</a>
+            <a class="button88" href="#top">電波塔<br>ONLINE</a>
+          </div>
+          <p class="mini">
+            バナーサイズ：88×31px<br>
+            バナーはお持ち帰りでお願いします。直リンク禁止！
+          </p>
+        </div>
+      </section>
+
+      <a class="back-top" href="#top">▲ ページの一番上へ</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    Copyright © 2005-2006 月城ミナト All Rights Reserved.<br>
+    Since 2005.07.28 / Last Update 2006.08.19<br>
+    <span class="blink">このページは架空の個人サイトです</span>
+  </footer>
+</div>
+
+<script>
+  // 架空アクセスカウンター
+  const counter = document.getElementById("counter");
+  const base = 21337;
+  const visits = Number(localStorage.getItem("retroVisits") || 0) + 1;
+  localStorage.setItem("retroVisits", String(visits));
+  counter.textContent = String(base + visits).padStart(6, "0");
+
+  // 時計
+  function updateClock() {
+    const now = new Date();
+    const hh = String(now.getHours()).padStart(2, "0");
+    const mm = String(now.getMinutes()).padStart(2, "0");
+    const ss = String(now.getSeconds()).padStart(2, "0");
+    document.getElementById("clock").textContent = hh + ":" + mm + ":" + ss;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // WEB拍手
+  let claps = 0;
+  function clap() {
+    claps++;
+    const messages = [
+      "ありがとう！（*´∀｀*）",
+      "管理人のHPが1回復した！",
+      "拍手音が電脳世界に響いた！",
+      "うれしくて小躍りしています",
+      "連打も大歓迎です☆"
+    ];
+    document.getElementById("clapText").textContent =
+      messages[(claps - 1) % messages.length] + "　拍手：" + claps;
+  }
+
+  // 掲示板風UI（サーバー送信なし）
+  function postBbs(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("name").value.trim() || "名無し";
+    const subject = document.getElementById("subject").value.trim() || "無題";
+    const message = document.getElementById("message").value.trim();
+
+    if (!message) {
+      alert("本文を入力してください。");
+      return;
+    }
+
+    const escapeHtml = (text) =>
+      text.replace(/[&<>"']/g, ch => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[ch]));
+
+    const now = new Date();
+    const date =
+      now.getFullYear() + "/" +
+      String(now.getMonth() + 1).padStart(2, "0") + "/" +
+      String(now.getDate()).padStart(2, "0") + " " +
+      String(now.getHours()).padStart(2, "0") + ":" +
+      String(now.getMinutes()).padStart(2, "0");
+
+    const entry = document.createElement("div");
+    entry.className = "bbs-entry";
+    entry.innerHTML =
+      "<b>" + escapeHtml(subject) + "</b>" +
+      '<div class="bbs-meta">投稿者：' + escapeHtml(name) + "　" + date + "</div>" +
+      "<div>" + escapeHtml(message).replace(/\n/g, "<br>") + "</div>";
+
+    document.getElementById("bbsEntries").prepend(entry);
+    document.getElementById("message").value = "";
+    alert("書き込みました！（このページ内だけに表示されます）");
+  }
+
+  // マウスを追いかけるキラキラ
+  let lastSparkle = 0;
+  document.addEventListener("mousemove", (event) => {
+    const now = Date.now();
+    if (now - lastSparkle < 45) return;
+    lastSparkle = now;
+
+    const sparkle = document.createElement("span");
+    sparkle.className = "sparkle";
+    sparkle.textContent = Math.random() > 0.5 ? "★" : "・";
+    sparkle.style.left = event.clientX + 8 + "px";
+    sparkle.style.top = event.clientY + 8 + "px";
+    document.body.appendChild(sparkle);
+
+    setTimeout(() => sparkle.remove(), 700);
+  });
+</script>
+</body>
+</html>
